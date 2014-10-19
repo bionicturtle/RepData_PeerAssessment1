@@ -1,6 +1,6 @@
 # Reproducible Research: Peer Assessment 1
 
-Hello world
+Hello world Here is more text
 
 ## Loading and preprocessing the data
 
@@ -11,8 +11,6 @@ panderOptions('digits',2)
 activity <- read.csv("activity.csv", stringsAsFactors = FALSE)
 activity$date <- as.Date(activity$date)
 ```
-
-
 
 
 ## What is mean total number of steps taken per day?
