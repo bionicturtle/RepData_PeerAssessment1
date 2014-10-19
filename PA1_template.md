@@ -31,8 +31,8 @@ hist(steps.perday$steps, 10, freq=TRUE, main = "Histogram (NAs not treated)",
 
 In regard to the total number of steps per day over the period:
 
-* The **mean** daily total is 10766.19 and 
-* The **median** daily total is 10765.00
+* The __mean__ daily total is 10766.19 and 
+* The __median__ daily total is 10765.00
 
 ## What is the average daily activity pattern?
 Now we consider the pattern over an average day. There are 288 5-minute intervals in each day (288 = 24 hours * 60 minutes / 5 minutes). For each 5-minute interval, this plots the average across all days. 
@@ -65,7 +65,8 @@ index <- with(df.merged, order(date, interval))
 new.table <- df.merged[index,]
 
 newsteps.perday <- aggregate(new.table["steps.x"], by=new.table["date"],FUN="sum")
-hist(newsteps.perday$steps, 10, freq=TRUE, main = "Histogram (NAs replaced)", ylab = "Frequency (No of Days)", xlab="Steps", col="green")
+hist(newsteps.perday$steps, 10, freq=TRUE, main = "Histogram (NAs replaced)", 
+     ylab = "Frequency (No of Days)", xlab="Steps", col="green")
 ```
 
 ![plot of chunk missingvalues](./PA1_template_files/figure-html/missingvalues.png) 

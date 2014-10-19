@@ -33,8 +33,8 @@ hist(steps.perday$steps, 10, freq=TRUE, main = "Histogram (NAs not treated)",
 
 In regard to the total number of steps per day over the period:
 
-* The **mean** daily total is `r format(steps.perday.mean, nsmall = 2)` and 
-* The **median** daily total is `r format(steps.perday.median, nsmall = 2)`
+* The __mean__ daily total is `r format(steps.perday.mean, nsmall = 2)` and 
+* The __median__ daily total is `r format(steps.perday.median, nsmall = 2)`
 
 ## What is the average daily activity pattern?
 Now we consider the pattern over an average day. There are 288 5-minute intervals in each day (288 = 24 hours * 60 minutes / 5 minutes). For each 5-minute interval, this plots the average across all days. 
@@ -62,7 +62,8 @@ index <- with(df.merged, order(date, interval))
 new.table <- df.merged[index,]
 
 newsteps.perday <- aggregate(new.table["steps.x"], by=new.table["date"],FUN="sum")
-hist(newsteps.perday$steps, 10, freq=TRUE, main = "Histogram (NAs replaced)", ylab = "Frequency (No of Days)", xlab="Steps", col="green")
+hist(newsteps.perday$steps, 10, freq=TRUE, main = "Histogram (NAs replaced)", 
+     ylab = "Frequency (No of Days)", xlab="Steps", col="green")
 
 newsteps.perday.median <- quantile(newsteps.perday$steps, probs = 0.5, na.rm=TRUE)
 newsteps.perday.mean <- mean(newsteps.perday$steps, na.rm=TRUE)
