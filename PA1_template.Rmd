@@ -5,7 +5,7 @@ output:
     keep_md: true
 ---
 
-Hello world Here is more text And more again Hello Europe
+This is the introduction to my file
 
 ## Loading and preprocessing the data
 ```{r loaddata}

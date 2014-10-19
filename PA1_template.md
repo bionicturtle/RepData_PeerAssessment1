@@ -1,6 +1,6 @@
 # Reproducible Research: Peer Assessment 1
 
-Hello world Here is more text
+This is the introduction to my file
 
 ## Loading and preprocessing the data
 
