@@ -1,14 +1,10 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
 Hello world
 
 ## Loading and preprocessing the data
-```{r loaddata}
+
+```r
 library(pander)
 library(ggplot2)
 panderOptions('digits',2)
@@ -17,60 +13,81 @@ activity$date <- as.Date(activity$date)
 ```
 
 
+
+
 ## What is mean total number of steps taken per day?
-```{r dailysteps, fig.height=4, fig.width=4}
+
+```r
 steps.perday <- aggregate(activity["steps"], by=activity["date"],FUN="sum")
 steps.perday.median <- quantile(steps.perday$steps, probs = 0.5, na.rm=TRUE)
 steps.perday.mean <-mean(steps.perday$steps, na.rm=TRUE)
 hist(steps.perday$steps, freq=TRUE, main = "Histogram", 
      ylab = "Frequency (No of Days)", xlab="Steps", col="green")
-
 ```
+
+![plot of chunk dailysteps](./PA1_template_files/figure-html/dailysteps.png) 
 
 In regard to the total number of steps per day over the period:
 
-* The mean daily total is `r format(steps.perday.mean, nsmall = 2)` and 
-* The median daily total is `r format(steps.perday.median, nsmall = 2)`
+* The mean daily total is 10766.19 and 
+* The median daily total is 10765.00
 
 ## What is the average daily activity pattern?
-```{r daypattern, fig.height=4, fig.width=4}
+
+```r
 steps.perinterval <- aggregate(activity["steps"], by=activity["interval"],
                                FUN="mean", na.rm = TRUE)
 plot(steps.perinterval, type="l")
-
-interval.maxsteps <- max(steps.perinterval$steps)
-interval.max <- steps.perinterval$interval[steps.perinterval$steps == max(steps.perinterval$steps)]
-
 ```
 
-The 5-minute interval, on average across all the days in the dataset, is the `r interval.max` which contains (on average) `r format(interval.maxsteps, nsmall = 2)` steps.
+![plot of chunk daypattern](./PA1_template_files/figure-html/daypattern.png) 
+
+```r
+interval.maxsteps <- max(steps.perinterval$steps)
+interval.max <- steps.perinterval$interval[steps.perinterval$steps == max(steps.perinterval$steps)]
+```
+
+The 5-minute interval, on average across all the days in the dataset, is the 835 which contains (on average) 206.17 steps.
 
 ## Imputing missing values
 
-```{r missingvalues, fig.height=4, fig.width=4}
+
+```r
 number.nas <- sum(is.na(activity$steps))
 df.merged <- merge(activity, steps.perinterval, by.x= "interval", by.y= "interval", all.x = TRUE)
 df.merged$steps.x[is.na(df.merged$steps.x)] <- df.merged$steps.y
+```
+
+```
+## Warning: number of items to replace is not a multiple of replacement
+## length
+```
+
+```r
 index <- with(df.merged, order(date, interval))
 new.table <- df.merged[index,]
 
 newsteps.perday <- aggregate(new.table["steps.x"], by=new.table["date"],FUN="sum")
 hist(newsteps.perday$steps, freq=TRUE, main = "Histogram", ylab = "Frequency (No of Days)", xlab="Steps", col="green")
+```
 
+![plot of chunk missingvalues](./PA1_template_files/figure-html/missingvalues.png) 
+
+```r
 newsteps.perday.median <- quantile(newsteps.perday$steps, probs = 0.5, na.rm=TRUE)
 newsteps.perday.mean <- mean(newsteps.perday$steps, na.rm=TRUE)
-
 ```
 
 
 In regard to the total number of steps per day over the period:
 
-* The mean daily total is `r format(newsteps.perday.mean, nsmall = 2)` and 
-* The median daily total is `r format(newsteps.perday.median, nsmall = 2)`
+* The mean daily total is 9371.44 and 
+* The median daily total is 10395.00
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
-```{r weekdays, fig.height=6, fig.width=8}
+
+```r
 new.table$weekday <- weekdays(new.table$date)
 v.weekdays <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
 v.weekend <- c("Saturday", "Sunday")
@@ -82,4 +99,6 @@ ggplot(n.steps.perday, aes(x=interval, y=steps.x)) +
     geom_line() + 
     facet_grid(weekday ~ .)
 ```
+
+![plot of chunk weekdays](./PA1_template_files/figure-html/weekdays.png) 
 
