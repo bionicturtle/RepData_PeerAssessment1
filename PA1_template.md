@@ -47,7 +47,7 @@ plot(steps.perinterval, type="l", main="average daily activity pattern")
 ![plot of chunk daypattern](./PA1_template_files/figure-html/daypattern.png) 
 
 ```r
-    interval.maxsteps <- max(steps.perinterval$steps)
+interval.maxsteps <- max(steps.perinterval$steps)
 interval.max <- steps.perinterval$interval[steps.perinterval$steps == max(steps.perinterval$steps)]
 ```
 
